@@ -21,15 +21,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     void Update() {
-//        Move(Input.GetAxis("Horizontal"));
-
         if (transform.position.y >= jumpHeight) {
             _jumping = false;
         }
-
-//        if (Input.GetKeyDown(KeyCode.Space) && transform.position.y <= floorPosition) {
-//            Jump();
-//        }
 
         float deltaY = 0f;
 
@@ -46,6 +40,7 @@ public class PlayerController : MonoBehaviour {
             position = new Vector3(position.x, floorPosition, position.z);
             transform1.position = position;
         }
-        transform.position += deltaY * Time.deltaTime * Vector3.up;
+        var newY = Mathf.Clamp(transform.position.y + deltaY * Time.deltaTime, floorPosition, jumpHeight);
+        transform.position = new Vector2(transform.position.x, newY);
     }
 }
