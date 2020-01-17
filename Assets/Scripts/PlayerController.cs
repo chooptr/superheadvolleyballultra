@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     public float fallSpeed = 10f;
@@ -40,7 +38,10 @@ public class PlayerController : MonoBehaviour {
             position = new Vector3(position.x, floorPosition, position.z);
             transform1.position = position;
         }
-        var newY = Mathf.Clamp(transform.position.y + deltaY * Time.deltaTime, floorPosition, jumpHeight);
-        transform.position = new Vector2(transform.position.x, newY);
+
+        var position1 = transform.position;
+        var newY = Mathf.Clamp(position1.y + deltaY * Time.deltaTime, floorPosition, jumpHeight);
+        position1 = new Vector2(position1.x, newY);
+        transform.position = position1;
     }
 }
