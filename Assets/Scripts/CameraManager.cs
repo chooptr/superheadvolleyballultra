@@ -57,8 +57,8 @@ public class CameraManager : MonoBehaviour {
 		catch (Exception ex) {
 			Debug.Log(ex.Message);
 		}
-
-		CvInvoke.Imshow("webcam.view", _webcamFrame);
+		
+		//CvInvoke.Imshow("webcam.view", _webcamFrame);
 		CvInvoke.WaitKey(delay);
 	}
 
