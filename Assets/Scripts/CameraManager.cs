@@ -5,24 +5,26 @@ using Emgu.CV;
 using Emgu.CV.CvEnum;
 using Emgu.CV.Structure;
 using UnityEngine;
+using System.Collections;
+using System.Linq;
 
 public class CameraManager : MonoBehaviour {
-	VideoCapture videoCapture;
-	private Mat _webcamFrame = new Mat();
-	private IOutputArray _webcamFrameGray;
+	public PlayerController pL, pR;
+
 	[Range(10, 60)] public int delay = 24;
+	public float scaleFactor;
+	public int minNeighbors;
+	public int minSize;
+	public int maxSize;
+	public double r, g, b;
 
 	private CascadeClassifier _frontfacesCascadeClassifier;
 	private string _frontfacesCascadeClassifierPath = "classifier.xml";
-	public float _scaleFactor;
-	public int _minNeighbors;
-	public int _minSize;
-	public int _maxSize;
-
 	private Mat gray = new Mat();
-	Rectangle[] faces = null;
-
-	public double r, g, b;
+	private Mat _webcamFrame = new Mat();
+	private VideoCapture videoCapture;
+	private Rectangle[] faces = null;
+	private Rectangle leftMost, rightMost;
 
 	void Start() {
 		videoCapture = new VideoCapture();
@@ -43,22 +45,27 @@ public class CameraManager : MonoBehaviour {
 		try {
 			faces = _frontfacesCascadeClassifier.DetectMultiScale(
 				gray,
-				_scaleFactor,
-				_minNeighbors,
-				new Size(_minSize, _minSize),
-				new Size(_maxSize, _maxSize)
+				scaleFactor,
+				minNeighbors,
+				new Size(minSize, minSize),
+				new Size(maxSize, maxSize)
 			);
 
-			foreach (Rectangle face in faces) {
-				CvInvoke.Rectangle(_webcamFrame, face, new MCvScalar(b, g, r));
-				Debug.Log(face.Location);
-			}
+			//var leftFaces = faces.OrderBy(x => x.Location.X).Select();
+			var ordered = faces.OrderBy(x => x.Location.X);
+
+			leftMost = ordered.First();
+			rightMost = ordered.Last();
+			Debug.Log(leftMost.Location);
+			CvInvoke.Rectangle(_webcamFrame, leftMost, new MCvScalar(b, g, r));
+			CvInvoke.Rectangle(_webcamFrame, rightMost, new MCvScalar(r, g, b));
+
 		}
 		catch (Exception ex) {
 			Debug.Log(ex.Message);
 		}
 		
-		//CvInvoke.Imshow("webcam.view", _webcamFrame);
+		CvInvoke.Imshow("webcam.view", _webcamFrame);
 		CvInvoke.WaitKey(delay);
 	}
 

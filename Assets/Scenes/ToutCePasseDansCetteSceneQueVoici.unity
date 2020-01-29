@@ -580,7 +580,7 @@ PrefabInstance:
     - target: {fileID: 6014642101202240526, guid: 4226aea4cbef71ebdbda85a4c0a95348,
         type: 3}
       propertyPath: m_Name
-      value: P2
+      value: PR
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4226aea4cbef71ebdbda85a4c0a95348, type: 3}
@@ -663,11 +663,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c25f16e76947bc48823c9f64744a438, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pL: {fileID: 628094702}
+  pR: {fileID: 1918904288}
   delay: 24
-  _scaleFactor: 1.1
-  _minNeighbors: 3
-  _minSize: 0
-  _maxSize: 500
+  scaleFactor: 1.1
+  minNeighbors: 2
+  minSize: 0
+  maxSize: 500
   r: 255
   g: 0
   b: 0
@@ -755,7 +757,7 @@ PrefabInstance:
     - target: {fileID: 6014642101202240526, guid: 4226aea4cbef71ebdbda85a4c0a95348,
         type: 3}
       propertyPath: m_Name
-      value: P1
+      value: PL
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4226aea4cbef71ebdbda85a4c0a95348, type: 3}
