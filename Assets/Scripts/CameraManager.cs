@@ -56,6 +56,7 @@ public class CameraManager : MonoBehaviour {
 
 			leftMost = ordered.First();
 			rightMost = ordered.Last();
+			
 			Debug.Log(leftMost.Location);
 			CvInvoke.Rectangle(_webcamFrame, leftMost, new MCvScalar(b, g, r));
 			CvInvoke.Rectangle(_webcamFrame, rightMost, new MCvScalar(r, g, b));
