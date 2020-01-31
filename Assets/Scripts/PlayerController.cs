@@ -3,6 +3,8 @@
 public class PlayerController : MonoBehaviour {
     public float fallSpeed = 10f;
     public float floorPosition = -3.25f;
+    public float leftWallPostion = -5.8f;
+    public float rightWallPostion = 5.8f;
     public float jumpSpeed = 30f;
     public float jumpHeight = -1f;
     public float moveSpeed = 10f;
@@ -15,7 +17,18 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Move(float multiplier) {
-        transform.position += multiplier * Time.deltaTime * moveSpeed * Vector3.right;
+        var step = multiplier * Time.deltaTime * moveSpeed * Vector3.right;
+        if ((transform.position + step).x > rightWallPostion  )
+        {
+            transform.position = new   Vector3(rightWallPostion, transform.position.y, transform.position.z);
+            return; 
+        }
+        if ((transform.position + step).x < leftWallPostion)
+        {
+            transform.position = new Vector3(leftWallPostion, transform.position.y, transform.position.z);
+            return; 
+        }
+        transform.position += step;
     }
 
     void Update() {
